@@ -4,7 +4,7 @@ import Vuex from "vuex";
 Vue.use(Vuex);
 
 export const store = new Vuex.Store({
-    // strict mode will prevent methods that will affect the state outside of mutations
+  // strict mode will prevent methods that will affect the state outside of mutations
   strict: true,
   state: {
     products: [
@@ -27,12 +27,22 @@ export const store = new Vuex.Store({
     },
   },
   // mutations can be tracked in the Vuejs dev tools
-  // mutattions cannot perform async tasks
+  // shouldn't put async code in mutations since can be hard to track in dev tools
   mutations: {
-      reducePrice: state => {
-          state.products.forEach( product => {
-              product.price -= 1
-          });
-      }
-  }
+    reducePrice: (state, payload) => {
+      state.products.forEach((product) => {
+        product.price -= payload;
+      });
+    },
+  },
+  // Good practice to dispatch an action that calls a mutation
+  // HTTP requests should be sent from actions
+  actions: {
+    reducePrice: (context, payload) => {
+      setTimeout(function () {
+        // reach out for data
+        context.commit("reducePrice", payload);
+      }, 2000);
+    },
+  },
 });
