@@ -1,5 +1,8 @@
 # vuex-project
 
+Once I had learnt the basics of Vue.js and vue router, I created this project and installed VueX to practice the basics of VueX.
+VueX is used for state management
+
 ## Project setup
 ```
 npm install
